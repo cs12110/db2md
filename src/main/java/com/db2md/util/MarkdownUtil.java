@@ -82,7 +82,7 @@ public class MarkdownUtil {
 		table.append(System.lineSeparator());
 		for (int index = 0, size = list.size(); index < size; index++) {
 			FieldBean bean = list.get(index);
-			table.append(" | ");
+			table.append("| ");
 			table.append(bean.getName()).append(" | ");
 			table.append(bean.getType().toLowerCase()).append("[").append(bean.getLength()).append("]").append(" | ");
 			table.append(fixYes(bean.getAutoIncre())).append(" | ");

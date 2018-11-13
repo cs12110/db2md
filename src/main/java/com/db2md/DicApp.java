@@ -23,7 +23,7 @@ import com.db2md.util.MarkdownUtil;
 public class DicApp {
 	public static void main(String[] args) {
 		// 数据库连接地址
-		String dbUrl = "jdbc:mysql://10.10.2.233";
+		String dbUrl = "jdbc:mysql://10.10.2.233?useSSL=false";
 		// 数据库用户
 		String dbUser = "root";
 		// 数据库密码
@@ -31,10 +31,20 @@ public class DicApp {
 		// 数据库名称
 		String dbName = "ups_web";
 		// 数据字典存放位置
-		String mdPath = "d://ups-web.md";
+		String mdPath = "d://数据字典-latest.md";
 
 		System.out.println("------ 开始 -------");
+
+		long start = System.currentTimeMillis();
+
 		execute(dbUrl, dbUser, dbPassword, dbName, mdPath);
+
+		long end = System.currentTimeMillis();
+
+		System.out.println("数据库位置    : \t" + dbUrl + "/" + dbName);
+		System.out.println("数据字典位置: \t" + mdPath);
+		System.out.println("生成字典耗时:  \t" + (end - start) + " 毫秒");
+
 		System.out.println("------ 结束 -------");
 	}
 
