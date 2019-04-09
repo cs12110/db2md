@@ -1,6 +1,7 @@
 package com.db2md.bean;
 
 import com.alibaba.fastjson.JSON;
+import lombok.Data;
 
 /**
  * 字段类
@@ -9,9 +10,9 @@ import com.alibaba.fastjson.JSON;
  * <p>
  *
  * @author cs12110 2018年11月13日
- * @see
  * @since 1.0
  */
+@Data
 public class FieldBean {
 
 	/**
@@ -54,69 +55,7 @@ public class FieldBean {
 	 */
 	private String defValue;
 
-	public String getName() {
-		return name;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public String getLength() {
-		return length;
-	}
-
-	public void setLength(String length) {
-		this.length = length;
-	}
-
-	public String getNullable() {
-		return nullable;
-	}
-
-	public void setNullable(String nullable) {
-		this.nullable = nullable;
-	}
-
-	public String getDesc() {
-		return desc;
-	}
-
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
-
-	public String getIsKey() {
-		return isKey;
-	}
-
-	public void setIsKey(String isKey) {
-		this.isKey = isKey;
-	}
-
-	public String getAutoIncre() {
-		return autoIncre;
-	}
-
-	public void setAutoIncre(String autoIncre) {
-		this.autoIncre = autoIncre;
-	}
-
-	public String getDefValue() {
-		return defValue;
-	}
-
-	public void setDefValue(String defValue) {
-		this.defValue = defValue;
-	}
 
 	@Override
 	public String toString() {
