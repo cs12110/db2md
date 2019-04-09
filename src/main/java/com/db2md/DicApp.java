@@ -1,13 +1,9 @@
 package com.db2md;
 
-import java.sql.Connection;
-import java.util.*;
-
-import com.db2md.bean.FieldBean;
-import com.db2md.bean.MySqlInfoBean;
-import com.db2md.util.DbInfoUtil;
-import com.db2md.util.JdbcUtil;
-import com.db2md.util.MarkdownUtil;
+import com.db2md.bean.ConnectionInfoBean;
+import com.db2md.bean.MarkdownSettingBean;
+import com.db2md.service.Db2MdServiceImpl;
+import com.db2md.delegate.DelegateServiceImpl;
 
 /**
  * 数据字典
@@ -20,89 +16,56 @@ import com.db2md.util.MarkdownUtil;
  */
 public class DicApp {
 
+
     /**
      * 排在数据字典前面的数据表
      */
-    private static String[] sortedTableArray = {"top_answer_t", "map_topic_answer_t"};
+    private static final String[] SORTED_TABLE_ARRAY = {};
+
+    /**
+     * 数据字典文件位置
+     */
+    private static final String MARKDOWN_FILE_PATH = "d://数据字典-latest.md";
 
     public static void main(String[] args) {
         // 创建数据库连接信息实体类
-        MySqlInfoBean info = buildConnectionInfoBean();
+        ConnectionInfoBean infoBean = buildConnectionInfoBean();
+        MarkdownSettingBean settingBean = buildMdSetting();
         // 数据字典存放位置
-        String mdPath = "d://数据字典-latest.md";
 
-        long start = System.currentTimeMillis();
-
-        execute(info, mdPath);
-
-        long end = System.currentTimeMillis();
-        display(info, mdPath, (end - start));
+        DelegateServiceImpl proxy = new DelegateServiceImpl(new Db2MdServiceImpl());
+        proxy.execute(infoBean, settingBean);
     }
 
     /**
      * 创建mysql数据库连接信息实体类
      *
-     * @return MySqlInfoBean
+     * @return ConnectionInfoBean
      */
-    private static MySqlInfoBean buildConnectionInfoBean() {
-        return new MySqlInfoBean.Builder()
+    private static ConnectionInfoBean buildConnectionInfoBean() {
+        return new ConnectionInfoBean.Builder()
                 // 设置数据库连接地址
                 .setDbUrl("jdbc:mysql://47.98.104.252?useSSL=false")
                 // 数据库连接用户
                 .setDbUser("root")
                 // 数据库连接密码
-                .setDbPassword("Root@3306")
+                .setDbPassword("*****")
                 // 数据库名称
                 .setDbName("4fun_db")
                 .build();
     }
 
-
     /**
-     * 创建md文件
+     * markdown 文件设置类
      *
-     * @param infoBean 数据库地址信息实体类
-     * @param mdPath   markdown文件保存路径
+     * @return MarkdownSettingBean
      */
-    private static void execute(MySqlInfoBean infoBean, String mdPath) {
-        Connection conn = JdbcUtil.getMySqlConn(infoBean.getDbUrl(), infoBean.getDbUser(), infoBean.getDbPassword());
-        List<String> tableList = DbInfoUtil.getTableList(conn, infoBean.getDbName());
-        Map<String, List<FieldBean>> infoMap = new LinkedHashMap<>();
-
-        Set<String> alreadyWorkoutSet = new HashSet<>();
-
-        // 处理排序的数据表
-        for (String sorted : sortedTableArray) {
-            if (!tableList.contains(sorted)) {
-                System.err.println("error: [" + sorted + "] doesn't exists on:[" + infoBean.getDbName() + "]");
-                continue;
-            }
-            List<FieldBean> fieldList = DbInfoUtil.getFieldFromTable(conn, infoBean.getDbName(), sorted);
-            infoMap.put(sorted, fieldList);
-            alreadyWorkoutSet.add(sorted);
-        }
-        // 处理剩下的数据表
-        for (String tableName : tableList) {
-            if (alreadyWorkoutSet.add(tableName)) {
-                List<FieldBean> fieldList = DbInfoUtil.getFieldFromTable(conn, infoBean.getDbName(), tableName);
-                infoMap.put(tableName, fieldList);
-            }
-        }
-        JdbcUtil.close(conn);
-        MarkdownUtil.buildMd(mdPath, infoMap);
+    private static MarkdownSettingBean buildMdSetting() {
+        MarkdownSettingBean settingBean = new MarkdownSettingBean();
+        settingBean.setSortedTableArray(SORTED_TABLE_ARRAY);
+        settingBean.setMdFilePath(MARKDOWN_FILE_PATH);
+        return settingBean;
     }
 
 
-    /**
-     * 打印信息
-     *
-     * @param info   info
-     * @param mdPath md文件位置
-     * @param spend  消耗时间
-     */
-    private static void display(MySqlInfoBean info, String mdPath, long spend) {
-        System.out.println("数据库位置  : \t" + info.getDbUrl() + "/" + info.getDbName());
-        System.out.println("数据字典位置: \t" + mdPath);
-        System.out.println("生成字典耗时: \t" + spend + " 毫秒");
-    }
 }

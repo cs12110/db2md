@@ -16,7 +16,7 @@
 /**
 	* 创建mysql数据库连接信息实体类
 	*
-	* @return MySqlInfoBean
+	* @return ConnectionInfoBean
 	*/
 private static MySqlInfoBean buildConnectionInfoBean() {
 	return new MySqlInfoBean.Builder()

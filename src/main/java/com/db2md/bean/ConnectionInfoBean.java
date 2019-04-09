@@ -7,7 +7,7 @@ package com.db2md.bean;
  * @author cs12110 create at 2019/4/9 18:06
  * @version 1.0.0
  */
-public class MySqlInfoBean {
+public class ConnectionInfoBean {
     /**
      * 数据库连接地址
      */
@@ -28,7 +28,7 @@ public class MySqlInfoBean {
      */
     private String dbName;
 
-    private MySqlInfoBean(Builder builder) {
+    private ConnectionInfoBean(Builder builder) {
 
         this.dbUrl = builder.dbUrl;
         this.dbUser = builder.dbUser;
@@ -79,14 +79,14 @@ public class MySqlInfoBean {
             return this;
         }
 
-        public MySqlInfoBean build() {
-            return new MySqlInfoBean(this);
+        public ConnectionInfoBean build() {
+            return new ConnectionInfoBean(this);
         }
     }
 
     @Override
     public String toString() {
-        return "MySqlInfoBean{" +
+        return "ConnectionInfoBean{" +
                 "dbUrl='" + dbUrl + '\'' +
                 ", dbUser='" + dbUser + '\'' +
                 ", dbPassword='" + dbPassword + '\'' +
