@@ -10,14 +10,30 @@
 
 在 DicApp.java 里面修改相应的参数,并启动运行即可.
 
+
+请按需修改如下配置
+
+```java
+
+/**
+ * 排在数据字典前面的数据表
+ */
+private static final String[] SORTED_TABLE_ARRAY = {};
+
+/**
+ * 数据字典文件位置
+ */
+private static final String MARKDOWN_FILE_PATH = "d://数据字典-latest.md";
+```
+
 修改数据库连接地址和用户:
 
 ```java
 /**
-	* 创建mysql数据库连接信息实体类
-	*
-	* @return ConnectionInfoBean
-	*/
+* 创建mysql数据库连接信息实体类
+*
+* @return ConnectionInfoBean
+*/
 private static MySqlInfoBean buildConnectionInfoBean() {
 	return new MySqlInfoBean.Builder()
 			// 设置数据库连接地址
@@ -30,15 +46,6 @@ private static MySqlInfoBean buildConnectionInfoBean() {
 			.setDbName("4fun_db")
 			.build();
 }
-```
-
-如果需要某一些数据表按照顺序生成,请填写(请确保数据表存在)
-
-```java
-/**
- * 排在数据字典前面的数据表
- */
-private static String[] sortedTableArray = {"top_answer_t"};
 ```
 
 ---
