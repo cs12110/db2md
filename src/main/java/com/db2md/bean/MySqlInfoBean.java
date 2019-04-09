@@ -1,7 +1,5 @@
 package com.db2md.bean;
 
-import com.alibaba.fastjson.JSON;
-import lombok.Data;
 
 /**
  * mysql连接信息实体类
@@ -9,7 +7,6 @@ import lombok.Data;
  * @author cs12110 create at 2019/4/9 18:06
  * @version 1.0.0
  */
-@Data
 public class MySqlInfoBean {
     /**
      * 数据库连接地址
@@ -38,6 +35,22 @@ public class MySqlInfoBean {
         this.dbPassword = builder.dbPassword;
         this.dbName = builder.dbName;
 
+    }
+
+    public String getDbUrl() {
+        return dbUrl;
+    }
+
+    public String getDbUser() {
+        return dbUser;
+    }
+
+    public String getDbPassword() {
+        return dbPassword;
+    }
+
+    public String getDbName() {
+        return dbName;
     }
 
     public static class Builder {
@@ -73,6 +86,11 @@ public class MySqlInfoBean {
 
     @Override
     public String toString() {
-        return JSON.toJSONString(this);
+        return "MySqlInfoBean{" +
+                "dbUrl='" + dbUrl + '\'' +
+                ", dbUser='" + dbUser + '\'' +
+                ", dbPassword='" + dbPassword + '\'' +
+                ", dbName='" + dbName + '\'' +
+                '}';
     }
 }

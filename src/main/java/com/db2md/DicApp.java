@@ -23,7 +23,7 @@ public class DicApp {
     /**
      * 排在数据字典前面的数据表
      */
-    private static String[] sortedTableArray = {"top_answer_t"};
+    private static String[] sortedTableArray = {"top_answer_t", "map_topic_answer_t"};
 
     public static void main(String[] args) {
         // 创建数据库连接信息实体类
@@ -51,7 +51,7 @@ public class DicApp {
                 // 数据库连接用户
                 .setDbUser("root")
                 // 数据库连接密码
-                .setDbPassword("*******")
+                .setDbPassword("Root@3306")
                 // 数据库名称
                 .setDbName("4fun_db")
                 .build();
