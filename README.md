@@ -30,18 +30,18 @@ private static final String MARKDOWN_FILE_PATH = "d://数据字典-latest.md";
 
 ```java
 /**
-* 创建mysql数据库连接信息实体类
-*
-* @return ConnectionInfoBean
-*/
-private static MySqlInfoBean buildConnectionInfoBean() {
-	return new MySqlInfoBean.Builder()
+ * 创建mysql数据库连接信息实体类
+ * 
+ * @return ConnectionInfoBean
+ */
+private static ConnectionInfoBean buildConnectionInfoBean() {
+	return new ConnectionInfoBean.Builder()
 			// 设置数据库连接地址
 			.setDbUrl("jdbc:mysql://47.98.104.252?useSSL=false")
 			// 数据库连接用户
 			.setDbUser("root")
 			// 数据库连接密码
-			.setDbPassword("****")
+			.setDbPassword("*****")
 			// 数据库名称
 			.setDbName("4fun_db")
 			.build();
